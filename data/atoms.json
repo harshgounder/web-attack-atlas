@@ -1,0 +1,230 @@
+{
+ "generated_at": "2026-10-26",
+ "version": "0.1",
+ "count": 16,
+ "note": "Atoms are the primitives. Every pattern in this atlas instantiates one or more. New atoms require an explicit decision.",
+ "atoms": [
+  {
+   "id": "A01",
+   "name": "interpreter confusion",
+   "definition": "untrusted data is treated as inert by one layer and as code or syntax by another",
+   "signal": "a parser receives data the first layer thought was data",
+   "classes": [
+    "SQLi",
+    "XSS",
+    "SSTI",
+    "NoSQLi",
+    "LDAP",
+    "OS command",
+    "log injection"
+   ],
+   "mitigation": "context aware encoding at the exact sink, never before it"
+  },
+  {
+   "id": "A02",
+   "name": "trust boundary crossing",
+   "definition": "a lower privileged principal causes an action with higher privilege authority",
+   "signal": "an object or action succeeds for a principal that should not own it",
+   "classes": [
+    "BOLA",
+    "BFLA",
+    "IDOR",
+    "tenant escape",
+    "confused deputy",
+    "SSRF"
+   ],
+   "mitigation": "object level and function level checks on every path, deny by default"
+  },
+  {
+   "id": "A03",
+   "name": "identity confusion",
+   "definition": "the system misidentifies who or what is acting",
+   "signal": "two components disagree about identity",
+   "classes": [
+    "token confusion",
+    "audience mixups",
+    "header trust",
+    "session vs token",
+    "impersonation"
+   ],
+   "mitigation": "one identity resolution point, explicit audience, no identity from headers"
+  },
+  {
+   "id": "A04",
+   "name": "state confusion",
+   "definition": "the system's view of state differs from real state",
+   "signal": "two requests see different truth",
+   "classes": [
+    "desync",
+    "TOCTOU",
+    "replay",
+    "duplicate submit",
+    "orphaned state"
+   ],
+   "mitigation": "single source of truth, idempotency keys, transactional state"
+  },
+  {
+   "id": "A05",
+   "name": "type and shape confusion",
+   "definition": "a value is valid in one context and means something else in another",
+   "signal": "the same bytes parse differently in two places",
+   "classes": [
+    "mass assignment",
+    "null coercion",
+    "duplicate keys",
+    "integer overflow",
+    "unicode"
+   ],
+   "mitigation": "schema validation at every boundary, explicit allowlists"
+  },
+  {
+   "id": "A06",
+   "name": "path and namespace confusion",
+   "definition": "two components resolve the same name or path to different targets",
+   "signal": "what the validator checked is not what the handler used",
+   "classes": [
+    "path traversal",
+    "normalization mismatch",
+    "host header",
+    "route shadowing",
+    "cache key"
+   ],
+   "mitigation": "canonicalise once, compare canonical forms, no path from user input"
+  },
+  {
+   "id": "A07",
+   "name": "resource exhaustion",
+   "definition": "a finite resource is consumed faster than it is replenished",
+   "signal": "latency, error rate or cost spikes under cheap input",
+   "classes": [
+    "rate limit bypass",
+    "ReDoS",
+    "zip bomb",
+    "GraphQL depth",
+    "token cost abuse"
+   ],
+   "mitigation": "cost analysis per operation, quotas by principal"
+  },
+  {
+   "id": "A08",
+   "name": "information exposure",
+   "definition": "data reaches a party that should not receive it",
+   "signal": "an unexpected channel carries protected data",
+   "classes": [
+    "verbose errors",
+    "debug endpoints",
+    "source maps",
+    "metadata",
+    "side channels"
+   ],
+   "mitigation": "egress allowlist, response shaping, uniform errors"
+  },
+  {
+   "id": "A09",
+   "name": "cryptographic weakness",
+   "definition": "a property the design assumes is true is not",
+   "signal": "crypto behaviour contradicts its stated guarantee",
+   "classes": [
+    "JWT alg confusion",
+    "nonce reuse",
+    "weak KDF",
+    "ECB",
+    "padding oracle"
+   ],
+   "mitigation": "vetted libraries, fixed algorithms, no negotiation from input"
+  },
+  {
+   "id": "A10",
+   "name": "logic assumption violation",
+   "definition": "the workflow relies on an invariant the attacker can break",
+   "signal": "the system does something valid per field but wrong per business rule",
+   "classes": [
+    "coupon abuse",
+    "negative quantity",
+    "approval bypass",
+    "sequence skip"
+   ],
+   "mitigation": "invariants enforced server side per step, not per field"
+  },
+  {
+   "id": "A11",
+   "name": "dependency compromise",
+   "definition": "an upstream artifact is trusted and should not be",
+   "signal": "the build or runtime pulls code nobody reviewed",
+   "classes": [
+    "dependency confusion",
+    "typosquat",
+    "malicious package",
+    "CI token"
+   ],
+   "mitigation": "pinned digests, private registry priority, provenance, review"
+  },
+  {
+   "id": "A12",
+   "name": "timing and ordering",
+   "definition": "the window between check and use is exploitable",
+   "signal": "concurrency changes the outcome",
+   "classes": [
+    "race conditions",
+    "double spend",
+    "TOCTOU",
+    "cache stampede"
+   ],
+   "mitigation": "atomic operations, locks, serializable transactions"
+  },
+  {
+   "id": "A13",
+   "name": "side channel",
+   "definition": "observable behaviour leaks protected information",
+   "signal": "a legitimate observable reveals a secret",
+   "classes": [
+    "timing",
+    "error differential",
+    "size",
+    "compression",
+    "cache timing"
+   ],
+   "mitigation": "constant time compare, uniform responses, no secret dependent branching"
+  },
+  {
+   "id": "A14",
+   "name": "human manipulation",
+   "definition": "the human in the loop is the weakest component",
+   "signal": "a person takes an action they would not have taken informed",
+   "classes": [
+    "phishing",
+    "support impersonation",
+    "MFA fatigue",
+    "urgency"
+   ],
+   "mitigation": "phishing resistant auth, process with out of band verification"
+  },
+  {
+   "id": "A15",
+   "name": "configuration divergence",
+   "definition": "the deployed state differs from the intended state",
+   "signal": "the system behaves per an unstated default",
+   "classes": [
+    "debug on in prod",
+    "permissive CORS",
+    "default creds",
+    "exposed admin",
+    "missing header"
+   ],
+   "mitigation": "config as code with drift detection, secure defaults audited"
+  },
+  {
+   "id": "A16",
+   "name": "model and agent manipulation",
+   "definition": "an AI component's instruction following is the trust boundary",
+   "signal": "the model does something the operator did not intend",
+   "classes": [
+    "prompt injection",
+    "tool call abuse",
+    "RAG poisoning",
+    "memory write"
+   ],
+   "mitigation": "treat retrieved text as data, least privilege tools, output validation"
+  }
+ ]
+}

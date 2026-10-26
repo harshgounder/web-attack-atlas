@@ -1,0 +1,191 @@
+{
+ "generated_at": "2026-10-26",
+ "bar": "50+ enriched patterns per domain",
+ "gate": "every pattern answers the five questions and has a counter row, or is marked DRAFT with reason",
+ "domains": [
+  {
+   "id": "W01",
+   "title": "write primitives and object lifecycle",
+   "series": "W",
+   "status": "QUEUED",
+   "patterns": 0,
+   "wave": null
+  },
+  {
+   "id": "W02",
+   "title": "authorisation on writes",
+   "series": "W",
+   "status": "QUEUED",
+   "patterns": 0,
+   "wave": null
+  },
+  {
+   "id": "W03",
+   "title": "second-order and deferred processing",
+   "series": "W",
+   "status": "QUEUED",
+   "patterns": 0,
+   "wave": null
+  },
+  {
+   "id": "W04",
+   "title": "datastore writes",
+   "series": "W",
+   "status": "QUEUED",
+   "patterns": 0,
+   "wave": null
+  },
+  {
+   "id": "W05",
+   "title": "file write and materialisation",
+   "series": "W",
+   "status": "QUEUED",
+   "patterns": 0,
+   "wave": null
+  },
+  {
+   "id": "W06",
+   "title": "shared state and cache",
+   "series": "W",
+   "status": "QUEUED",
+   "patterns": 0,
+   "wave": null
+  },
+  {
+   "id": "W07",
+   "title": "identity state",
+   "series": "W",
+   "status": "QUEUED",
+   "patterns": 0,
+   "wave": null
+  },
+  {
+   "id": "W08",
+   "title": "business logic state machines",
+   "series": "W",
+   "status": "QUEUED",
+   "patterns": 0,
+   "wave": null
+  },
+  {
+   "id": "W09",
+   "title": "concurrency and ordering",
+   "series": "W",
+   "status": "QUEUED",
+   "patterns": 0,
+   "wave": null
+  },
+  {
+   "id": "W10",
+   "title": "code path writes",
+   "series": "W",
+   "status": "QUEUED",
+   "patterns": 0,
+   "wave": null
+  },
+  {
+   "id": "W11",
+   "title": "control plane writes",
+   "series": "W",
+   "status": "QUEUED",
+   "patterns": 0,
+   "wave": null
+  },
+  {
+   "id": "W12",
+   "title": "AI memory and retrieval state",
+   "series": "W",
+   "status": "QUEUED",
+   "patterns": 0,
+   "wave": null
+  },
+  {
+   "id": "R01",
+   "title": "passive acquisition",
+   "series": "R",
+   "status": "QUEUED",
+   "patterns": 0,
+   "wave": null
+  },
+  {
+   "id": "R02",
+   "title": "surface and stack mapping",
+   "series": "R",
+   "status": "QUEUED",
+   "patterns": 0,
+   "wave": null
+  },
+  {
+   "id": "R03",
+   "title": "interface recovery",
+   "series": "R",
+   "status": "QUEUED",
+   "patterns": 0,
+   "wave": null
+  },
+  {
+   "id": "R04",
+   "title": "data exposure",
+   "series": "R",
+   "status": "QUEUED",
+   "patterns": 0,
+   "wave": null
+  },
+  {
+   "id": "R05",
+   "title": "artifact and secret mining",
+   "series": "R",
+   "status": "QUEUED",
+   "patterns": 0,
+   "wave": null
+  },
+  {
+   "id": "X01",
+   "title": "chains and escalation",
+   "series": "X",
+   "status": "QUEUED",
+   "patterns": 0,
+   "wave": null
+  },
+  {
+   "id": "X02",
+   "title": "oracles and proof",
+   "series": "X",
+   "status": "QUEUED",
+   "patterns": 0,
+   "wave": null
+  },
+  {
+   "id": "X03",
+   "title": "defence counters",
+   "series": "X",
+   "status": "QUEUED",
+   "patterns": 0,
+   "wave": null
+  },
+  {
+   "id": "X04",
+   "title": "detection mirror",
+   "series": "X",
+   "status": "QUEUED",
+   "patterns": 0,
+   "wave": null
+  },
+  {
+   "id": "X05",
+   "title": "reasoning and methodology",
+   "series": "X",
+   "status": "QUEUED",
+   "patterns": 0,
+   "wave": null
+  },
+  {
+   "id": "X06",
+   "title": "labs and calibration",
+   "series": "X",
+   "status": "QUEUED",
+   "patterns": 0,
+   "wave": null
+  }
+ ]
+}
