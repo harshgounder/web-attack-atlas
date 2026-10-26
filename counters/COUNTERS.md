@@ -1,28 +1,68 @@
 # Counters by control class
 
-A defender picks the classes they own and sees how many atlas patterns that closes. A researcher reads
-it the other way: this is what will stop you.
+A defender picks the classes they own and sees how many atlas patterns that closes. A researcher
+reads it the other way: this is what will stop you.
 
-`100` patterns across `11` control classes.
+`150` patterns across `11` control classes.
 
 | class | control | patterns closed |
 |---|---|---|
-| C02 | function level authorisation | 27 |
-| C03 | binding allowlist | 27 |
-| C01 | object level authorisation | 9 |
-| C05 | state machine integrity | 9 |
-| C04 | identity canonicalisation | 6 |
-| C06 | credential and token policy | 5 |
-| C09 | cache and key discipline | 5 |
-| C07 | parser strictness | 4 |
+| C02 | function level authorisation | 47 |
+| C03 | binding allowlist | 29 |
+| C05 | state machine integrity | 19 |
+| C01 | object level authorisation | 14 |
+| C09 | cache and key discipline | 9 |
+| C04 | identity canonicalisation | 8 |
+| C07 | parser strictness | 6 |
+| C06 | credential and token policy | 6 |
+| C12 | protocol lifecycle | 4 |
+| C10 | cost and resource control | 4 |
 | C11 | audit integrity | 4 |
-| C10 | cost and resource control | 2 |
-| C12 | protocol lifecycle | 2 |
 
 ## C02: function level authorisation
 
 per operation role and permission check, deny by default
 
+- `W01-0003` Partial update resets omitted fields to defaults
+  - counter: patch semantics with explicit presence handling
+- `W01-0005` Client supplied timestamps forge the audit trail
+  - counter: server clock only, ignore client time
+- `W01-0008` Foreign key swapped on update reparents the object
+  - counter: parent change is an authorised operation with both sides checked
+- `W01-0010` Soft delete filtered on read but not on write
+  - counter: deleted predicate in the writer and the reader
+- `W01-0011` Restore returns an object into a changed world
+  - counter: revalidate references on restore
+- `W01-0015` Bulk update selects rows by filter rather than explicit ids
+  - counter: bulk writes take ids, filters are read only
+- `W01-0017` Create with a reference to a private object is an existence oracle
+  - counter: uniform errors, rate limit, scope check before existence
+- `W01-0019` Delete via a safe method or a prefetchable link
+  - counter: safe methods never mutate, confirmation for destructive ops
+- `W01-0021` Export and reimport roundtrip changes security attributes
+  - counter: roundtrip test in CI, explicit defaults
+- `W01-0022` Trash and recycle bin reachable without the parent check
+  - counter: trash is a scoped view like any other
+- `W01-0028` Client assigns the sequence or ticket number
+  - counter: server assigns, enforced unique
+- `W01-0029` Collection update replaces instead of appends
+  - counter: explicit add, remove and set operations
+- `W01-0030` Collection replace drops entries the server added
+  - counter: protected entries outside the client writable set
+- `W01-0031` Null clears a field the validator considers present
+  - counter: validate type and nullability, not presence
+- `W01-0033` Create accepts an already approved state
+  - counter: initial state forced server side
+- `W01-0034` Dangling foreign key accepted and later dereferenced
+  - counter: enforce referential integrity at the store
+- `W01-0035` Bulk delete by filter removes rows outside the visible set
+  - counter: delete by ids, filters are read only
+- `W01-0040` Unique key collision lets an update land on another record
+  - counter: scope the match, enforce uniqueness per tenant
+- `W01-0046` Batch reports success while individual items failed
+  - counter: per item results, no aggregate only
+- `W01-0050` Write succeeds against a replica that will be discarded
+  - counter: writes to primary, read-your-writes routing
 - `W02-0003` Field level privilege through mass assignment
   - counter: explicit allowlist per role, never object hydration
 - `W02-0004` Write path missing the function level check the read path has
@@ -82,6 +122,10 @@ per operation role and permission check, deny by default
 
 explicit field allowlist, never object hydration
 
+- `W01-0014` Clone copies fields the original kept private
+  - counter: clone from an allowlist projection
+- `W01-0016` Sort and filter parameters reach the query builder
+  - counter: allowlist sortable and filterable fields
 - `W02-0033` Provisioning endpoint accepts writes it should reserve for the IdP
   - counter: mutual auth, source allowlist, separate audience
 - `W02-0036` GraphQL input coercion supplies a value the UI never sends
@@ -137,33 +181,30 @@ explicit field allowlist, never object hydration
 - `W03-0047` Ticket or comment body executes in the support console
   - counter: render as text, sanitize agent side
 
-## C01: object level authorisation
-
-per object ownership check on every operation
-
-- `W02-0001` Object level write substitution on an update endpoint
-  - counter: object level authorisation on every item write
-- `W02-0005` Ownership transfer without consent
-  - counter: owner consent required, two party confirmation
-- `W02-0007` Bulk endpoint skips per item authorisation
-  - counter: authorise each element, report per element
-- `W02-0011` Identifier harvested from a public surface unlocks the write
-  - counter: object level authorisation independent of id secrecy
-- `W02-0012` Child object write under a parent you do not own
-  - counter: authorise the parent on every nested operation
-- `W02-0021` Version history restore bypasses the current authorisation
-  - counter: authorise restore against current permissions on the parent
-- `W02-0034` Directory sync overwrites local attributes it should not own
-  - counter: field level ownership between systems
-- `W02-0047` Rename or move endpoint reparents a file without rechecking
-  - counter: authorise both source and destination
-- `W03-0024` Backup restore writes attacker supplied records
-  - counter: restore revalidates ownership, restore is a controlled operation
-
 ## C05: state machine integrity
 
 invariants enforced per step, separation of duties
 
+- `W01-0001` Parallel creates bypass a uniqueness check that is not atomic
+  - counter: unique constraint in the store, not in code
+- `W01-0007` Immutable identity fields are mutable on update
+  - counter: immutable after create, enforced in the writer
+- `W01-0009` Delete leaves children reachable by their own route
+  - counter: cascade or tombstone plus parent check on child reads
+- `W01-0018` Duplicate ids inside one payload produce a partial write
+  - counter: reject duplicates, transactional batch, honest reporting
+- `W01-0020` Update resurrects an object mid delete
+  - counter: state transition guarded by a conditional write
+- `W01-0025` Counters drift because increments have no matching decrement
+  - counter: derive counters, or make them transactional
+- `W01-0027` Write does not invalidate derived stores
+  - counter: outbox pattern with reconciliation
+- `W01-0038` Predictable identifier reuse after deletion
+  - counter: random or non-reusing ids, tombstones
+- `W01-0044` Retry without idempotency duplicates the effect
+  - counter: idempotency keys with a bounded store
+- `W01-0048` Polymorphic type field changed to reinterpret the same record
+  - counter: type immutable, one schema per record
 - `W02-0022` Draft state is permissive and publication skips the check
   - counter: validate at every transition, treat drafts as untrusted
 - `W02-0024` Quota or limit reset endpoint used to write demand
@@ -183,10 +224,70 @@ invariants enforced per step, separation of duties
 - `W03-0049` Deleted object still served from cache or index
   - counter: deletion propagates to every derived store, tombstone on read
 
+## C01: object level authorisation
+
+per object ownership check on every operation
+
+- `W01-0013` Merge operation accepts a source you do not own
+  - counter: authorise both operands
+- `W01-0037` Create accepts a client supplied owner
+  - counter: ownership derived from the session, never the body
+- `W01-0042` Restore payload repoints the object at another tenant
+  - counter: restore re-derives ownership from the target scope
+- `W01-0043` Write to a popular object triggers a notification storm
+  - counter: coalesce notifications, per object cooldown
+- `W01-0047` Recursive delete walks into objects shared with others
+  - counter: cascade follows ownership only, detach references
+- `W02-0001` Object level write substitution on an update endpoint
+  - counter: object level authorisation on every item write
+- `W02-0005` Ownership transfer without consent
+  - counter: owner consent required, two party confirmation
+- `W02-0007` Bulk endpoint skips per item authorisation
+  - counter: authorise each element, report per element
+- `W02-0011` Identifier harvested from a public surface unlocks the write
+  - counter: object level authorisation independent of id secrecy
+- `W02-0012` Child object write under a parent you do not own
+  - counter: authorise the parent on every nested operation
+- `W02-0021` Version history restore bypasses the current authorisation
+  - counter: authorise restore against current permissions on the parent
+- `W02-0034` Directory sync overwrites local attributes it should not own
+  - counter: field level ownership between systems
+- `W02-0047` Rename or move endpoint reparents a file without rechecking
+  - counter: authorise both source and destination
+- `W03-0024` Backup restore writes attacker supplied records
+  - counter: restore revalidates ownership, restore is a controlled operation
+
+## C09: cache and key discipline
+
+every varying input in the key
+
+- `W01-0026` Update leaves the version unchanged so caches keep serving old data
+  - counter: bump the validator on every write
+- `W01-0036` Nested relation write bypasses the child endpoint checks
+  - counter: one validator per resource, nested writes reuse it
+- `W01-0045` Idempotency key collides across principals
+  - counter: scope the key to the principal and route
+- `W01-0049` Object id from one collection resolves in another
+  - counter: globally unique ids or composite keys in the route
+- `W02-0027` Shared cache key collision overwrites another user's view
+  - counter: include every varying input in the key, or do not cache personalised responses
+- `W03-0017` Cache poisoning via a stored value reflected into a shared cache entry
+  - counter: key every varying input, or do not cache
+- `W03-0018` Cache deception stores a private page under a public path
+  - counter: cache only by explicit rule, normalize before keying
+- `W03-0032` Link preview caches attacker content under a trusted card
+  - counter: key previews by content hash or revalidate
+- `W03-0044` Stored user content becomes part of a shared template
+  - counter: never cache user fragments in shared keys
+
 ## C04: identity canonicalisation
 
 one normalisation form, exact match, verified linking
 
+- `W01-0006` State set directly instead of through the transition endpoint
+  - counter: state not bindable, transitions only
+- `W01-0039` Duplicate field names in form encoding split validation from storage
+  - counter: reject duplicates, one binder
 - `W02-0031` Alias or plus addressing resolves to a victim identity
   - counter: exact match identity, verify before linking
 - `W02-0042` Unicode normalisation makes two identifiers collide
@@ -200,10 +301,29 @@ one normalisation form, exact match, verified linking
 - `W03-0042` Archive entry names are used later by a batch unzip
   - counter: canonicalise and contain per entry, no links
 
+## C07: parser strictness
+
+one parser, reject duplicates and alternates
+
+- `W01-0023` Undo restores a state that was superseded
+  - counter: undo targets a version and rejects if superseded
+- `W01-0032` Enum coercion accepts a value outside the declared set
+  - counter: strict enum parsing, reject unknown
+- `W02-0008` Alternate representation reaches the same write with weaker checks
+  - counter: one parser per resource, reject alternates
+- `W02-0015` Duplicate parameter decides which role is written
+  - counter: reject duplicate parameters, parse once
+- `W02-0038` Duplicate JSON keys split validation from persistence
+  - counter: strict parser, reject duplicates
+- `W03-0040` Download served with a sniffable type executes in the app origin
+  - counter: separate asset origin, nosniff, attachment disposition
+
 ## C06: credential and token policy
 
 atomic single use, subset scopes, verified identity
 
+- `W01-0024` Delete removes the record but not the stored blobs
+  - counter: delete orchestrates storage, short lived signed urls
 - `W02-0002` Tenant escape through a nested reference on create
   - counter: derive tenant from token, never from body, and validate every referenced parent
 - `W02-0019` OAuth scope upgraded on refresh or re-consent
@@ -215,33 +335,31 @@ atomic single use, subset scopes, verified identity
 - `W03-0050` Revoked or downgraded privilege persists in existing sessions
   - counter: short lived tokens, revocation list checked per request
 
-## C09: cache and key discipline
+## C12: protocol lifecycle
 
-every varying input in the key
+retired versions decommissioned, one policy point
 
-- `W02-0027` Shared cache key collision overwrites another user's view
-  - counter: include every varying input in the key, or do not cache personalised responses
-- `W03-0017` Cache poisoning via a stored value reflected into a shared cache entry
-  - counter: key every varying input, or do not cache
-- `W03-0018` Cache deception stores a private page under a public path
-  - counter: cache only by explicit rule, normalize before keying
-- `W03-0032` Link preview caches attacker content under a trusted card
-  - counter: key previews by content hash or revalidate
-- `W03-0044` Stored user content becomes part of a shared template
-  - counter: never cache user fragments in shared keys
+- `W01-0002` Lost update overwrites a concurrent change silently
+  - counter: optimistic concurrency via version or ETag, or field level patch
+- `W01-0041` Client sets the version field to skip conflict detection
+  - counter: version compared and incremented server side only
+- `W02-0049` Retired API version still writes with the old guard
+  - counter: retire versions, or route them through the current policy layer
+- `W02-0050` Legacy protocol endpoint bypasses the modern authorisation layer
+  - counter: decommission or front with one policy proxy
 
-## C07: parser strictness
+## C10: cost and resource control
 
-one parser, reject duplicates and alternates
+per operation cost and quotas by principal
 
-- `W02-0008` Alternate representation reaches the same write with weaker checks
-  - counter: one parser per resource, reject alternates
-- `W02-0015` Duplicate parameter decides which role is written
-  - counter: reject duplicate parameters, parse once
-- `W02-0038` Duplicate JSON keys split validation from persistence
-  - counter: strict parser, reject duplicates
-- `W03-0040` Download served with a sniffable type executes in the app origin
-  - counter: separate asset origin, nosniff, attachment disposition
+- `W01-0004` Client supplied identifier chosen on create
+  - counter: server generates ids, ignore client values
+- `W01-0012` Draft autosave overwrites published content
+  - counter: separate draft from published, publish copies
+- `W02-0035` GraphQL aliases multiply a mutation past its guard
+  - counter: cost analysis per operation, authorise per node
+- `W03-0041` Content-Disposition filename carries a stored hostile value
+  - counter: generate safe filenames, encode per RFC
 
 ## C11: audit integrity
 
@@ -255,22 +373,4 @@ structured append only logging with attribution
   - counter: logic-less templates, never compile user input
 - `W03-0016` Log poisoning used as the input for a later file read
   - counter: logs outside the web root, no dynamic include
-
-## C10: cost and resource control
-
-per operation cost and quotas by principal
-
-- `W02-0035` GraphQL aliases multiply a mutation past its guard
-  - counter: cost analysis per operation, authorise per node
-- `W03-0041` Content-Disposition filename carries a stored hostile value
-  - counter: generate safe filenames, encode per RFC
-
-## C12: protocol lifecycle
-
-retired versions decommissioned, one policy point
-
-- `W02-0049` Retired API version still writes with the old guard
-  - counter: retire versions, or route them through the current policy layer
-- `W02-0050` Legacy protocol endpoint bypasses the modern authorisation layer
-  - counter: decommission or front with one policy proxy
 
