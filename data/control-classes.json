@@ -48,18 +48,28 @@
   "C12": {
    "name": "protocol lifecycle",
    "desc": "retired versions decommissioned, one policy point"
+  },
+  "C99": {
+   "name": "unclassified",
+   "desc": "counter did not match a control class. a classifier gap, reported rather than folded into another class."
+  },
+  "C13": {
+   "name": "maintenance and process",
+   "desc": "controls that live in process, infrastructure or review rather than in code"
   }
  },
  "pattern_counts": {
-  "C05": 19,
-  "C12": 4,
-  "C02": 47,
-  "C10": 4,
+  "C05": 31,
+  "C12": 2,
+  "C03": 35,
+  "C10": 3,
   "C04": 8,
-  "C01": 14,
-  "C03": 29,
+  "C02": 18,
+  "C13": 4,
+  "C01": 18,
+  "C99": 5,
   "C07": 6,
-  "C06": 6,
+  "C06": 7,
   "C09": 9,
   "C11": 4
  }

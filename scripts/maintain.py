@@ -19,23 +19,31 @@ CC_FILE = ROOT / "data" / "control-classes.json"
 
 RULES = [
     ("C01", ["object level", "ownership", "owner consent", "authorise the parent", "authorise both",
-             "authorise restore", "authorise each", "authorise every", "per object"]),
+             "authorise restore", "authorise each", "authorise every", "per object", "scoped view",
+             "scope the match", "sharer", "both operands"]),
     ("C02", ["function level", "route group", "role", "permission", "scope check", "admin only",
              "separation of duties", "policy", "privilege", "authoris", "authoriz"]),
     ("C03", ["allowlist", "binding", "field mask", "field level ownership", "resolver", "schema is not",
-             "escape", "sanitis", "sanitiz", "encoding", "strip", "neutralis", "neutraliz", "one parser"]),
+             "escape", "sanitis", "sanitiz", "encoding", "strip", "neutralis", "neutraliz", "one parser",
+             "parameteris", "parameteriz", "interpolate", "argv", "escaping layer", "presence handling"]),
     ("C04", ["normalis", "canonical", "exact match", "identifier charset", "identity", "case", "collation", "bind"]),
     ("C05", ["state machine", "idempotency", "invariant", "three states", "validate at every", "sign and range",
              "bounded", "eligibility", "immutable", "snapshot", "tombstone", "propagat", "transactional",
-             "conditional write", "outbox", "unique constraint"]),
+             "conditional write", "outbox", "unique constraint", "safe method", "never mutate", "predicate",
+             "referential", "server assigns", "server clock", "initial state", "explicit add", "delete by ids",
+             "per item result", "never consume on get"]),
     ("C06", ["single use", "refresh", "token", "credential", "audience", "mutual auth", "consent",
-             "revocation", "purpose bound", "short lived"]),
-    ("C07", ["parser", "duplicate", "typed binding", "reject", "content type", "sniff", "strict enum"]),
+             "revocation", "purpose bound", "short lived", "protected entries"]),
+    ("C07", ["parser", "duplicate", "typed binding", "reject", "content type", "sniff", "strict enum",
+             "nullability"]),
     ("C08", ["path", "containment", "destination", "canonicalis"]),
     ("C09", ["cache", "key", "ttl", "validator"]),
     ("C10", ["cost", "quota", "rate", "resource", "limit", "coalesce"]),
     ("C11", ["log", "audit", "attribution", "viewer"]),
     ("C12", ["version", "legacy", "decommission", "policy proxy", "retire"]),
+    # explicit maintenance and process controls, which are real but not code
+    ("C13", ["revalidate", "review", "documented", "mapping", "matrix", "test in ci", "roundtrip test",
+             "process", "infra", "segmented", "egress", "sandbox", "separate origin", "separate asset"]),
 ]
 
 
@@ -44,7 +52,9 @@ def classify(mech):
     for cid, keys in RULES:
         if any(k in s for k in keys):
             return cid
-    return "C02"
+    # NOT C02. an unmatched counter is a classifier gap, and folding it into authz would
+    # inflate the authz finding. Reported as its own bucket so the gap is visible.
+    return "C99"
 
 
 def load():
@@ -64,8 +74,13 @@ def main():
     for f, items in files.items():
         dirty = False
         for p in items:
-            if "control_class" not in p["counter"]:
-                p["counter"]["control_class"] = classify(p["counter"]["mechanism"])
+            # always recompute unless an explicit override is set. stale labels are worse than none.
+            if "control_class_override" in p["counter"]:
+                new = p["counter"]["control_class_override"]
+            else:
+                new = classify(p["counter"]["mechanism"])
+            if p["counter"].get("control_class") != new:
+                p["counter"]["control_class"] = new
                 dirty = True
                 changed += 1
         if dirty:
