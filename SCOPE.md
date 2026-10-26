@@ -194,3 +194,20 @@ This is knowledge and decision support for authorised security work. Every patte
 authorisation precondition. Patterns are described at the level of mechanism, precondition and
 verification. No target-specific exploitation against systems the operator does not own or have written
 permission to test.
+
+---
+
+## 9. Status vocabulary (corrected 2026-10-26)
+
+An earlier draft used `VERIFIED` for patterns that had never been executed. That overclaims, so the
+vocabulary is now explicit:
+
+| status | meaning |
+|---|---|
+| ESTABLISHED | the mechanism is documented in independent sources (OWASP, WSTG, published research, bug bounty reports). Not executed by this project. |
+| OBSERVED | reproduced in a lab by this project, with the run recorded in `waves/<id>/runs/` |
+| PROBABLE | plausible, implementation dependent, not yet confirmed in any source we can cite |
+| DRAFT | incomplete, excluded from the rendered atlas |
+
+No pattern ever claims OBSERVED without a recorded run. The gate enforces the vocabulary; the honesty
+rule enforces the meaning.

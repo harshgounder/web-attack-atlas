@@ -26,6 +26,13 @@ REQUIRED = ["id", "title", "atom", "target_state", "principal", "persistence",
 ATOM_NAMES = json.load(open(ROOT / "data" / "atoms.json"))
 ATOMS = {a["id"]: a["name"] for a in ATOM_NAMES["atoms"]}
 
+STATUS_MEANING = {
+    "ESTABLISHED": "mechanism is documented in independent sources, not executed by this project",
+    "OBSERVED": "reproduced in a lab by this project, with the run recorded",
+    "PROBABLE": "plausible and implementation dependent, not yet confirmed anywhere we can cite",
+    "DRAFT": "incomplete, kept out of the rendered atlas",
+}
+
 
 def load():
     rows = []
@@ -50,7 +57,7 @@ def gate(rows):
             failures.append((p["id"], "counter has no mechanism"))
         if not p.get("mutations"):
             failures.append((p["id"], "no mutations"))
-        if p.get("status") not in ("VERIFIED", "PROBABLE", "DRAFT"):
+        if p.get("status") not in ("ESTABLISHED", "OBSERVED", "PROBABLE", "DRAFT"):
             failures.append((p["id"], f"bad status {p.get('status')}"))
     return failures
 

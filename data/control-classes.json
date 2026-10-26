@@ -1,0 +1,67 @@
+{
+ "generated_at": "2026-10-26",
+ "classes": {
+  "C01": {
+   "name": "object level authorisation",
+   "desc": "per object ownership check on every operation"
+  },
+  "C02": {
+   "name": "function level authorisation",
+   "desc": "per operation role and permission check, deny by default"
+  },
+  "C03": {
+   "name": "binding allowlist",
+   "desc": "explicit field allowlist, never object hydration"
+  },
+  "C04": {
+   "name": "identity canonicalisation",
+   "desc": "one normalisation form, exact match, verified linking"
+  },
+  "C05": {
+   "name": "state machine integrity",
+   "desc": "invariants enforced per step, separation of duties"
+  },
+  "C06": {
+   "name": "credential and token policy",
+   "desc": "atomic single use, subset scopes, verified identity"
+  },
+  "C07": {
+   "name": "parser strictness",
+   "desc": "one parser, reject duplicates and alternates"
+  },
+  "C08": {
+   "name": "path and namespace control",
+   "desc": "canonicalise once, verify containment, no user paths"
+  },
+  "C09": {
+   "name": "cache and key discipline",
+   "desc": "every varying input in the key"
+  },
+  "C10": {
+   "name": "cost and resource control",
+   "desc": "per operation cost and quotas by principal"
+  },
+  "C11": {
+   "name": "audit integrity",
+   "desc": "structured append only logging with attribution"
+  },
+  "C12": {
+   "name": "protocol lifecycle",
+   "desc": "retired versions decommissioned, one policy point"
+  }
+ },
+ "pattern_counts": {
+  "C01": 8,
+  "C06": 3,
+  "C02": 16,
+  "C07": 3,
+  "C11": 2,
+  "C05": 6,
+  "C09": 1,
+  "C04": 4,
+  "C03": 4,
+  "C10": 1,
+  "C12": 2
+ },
+ "note": "If you have class C, these patterns die. This is the defender facing view of the atlas."
+}

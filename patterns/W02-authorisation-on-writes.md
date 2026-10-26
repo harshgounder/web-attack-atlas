@@ -64,7 +64,7 @@ Generated from `waves/W02/patterns.jsonl`. Do not edit by hand.
 **State changed:** another user's object field  
 **Acting as:** the victim user, borrowed by the attacker  
 **Persistence:** until corrected, visible to the victim immediately  
-**Status:** VERIFIED  
+**Status:** ESTABLISHED  
 **Authorization:** written scope from the target owner, and a second account you control
 
 Preconditions:
@@ -104,7 +104,7 @@ Procedure:
 **State changed:** a record owned by another tenant  
 **Acting as:** the victim tenant  
 **Persistence:** permanent until deleted  
-**Status:** VERIFIED  
+**Status:** ESTABLISHED  
 **Authorization:** written scope, two tenants you control
 
 Preconditions:
@@ -142,7 +142,7 @@ Procedure:
 **State changed:** a security relevant field on your own profile  
 **Acting as:** you, escalated  
 **Persistence:** permanent, survives re-login  
-**Status:** VERIFIED  
+**Status:** ESTABLISHED  
 **Authorization:** written scope, your own account
 
 Preconditions:
@@ -180,7 +180,7 @@ Procedure:
 **State changed:** an administrative object  
 **Acting as:** an admin, borrowed  
 **Persistence:** varies, often permanent  
-**Status:** VERIFIED  
+**Status:** ESTABLISHED  
 **Authorization:** written scope, role accounts provided
 
 Preconditions:
@@ -251,7 +251,7 @@ Procedure:
 **State changed:** the deleted flag and its dependents  
 **Acting as:** the deleted object's former owner, or a new user  
 **Persistence:** indefinite  
-**Status:** VERIFIED  
+**Status:** ESTABLISHED  
 **Authorization:** written scope, your own objects
 
 Preconditions:
@@ -286,7 +286,7 @@ Procedure:
 **State changed:** many objects in one request  
 **Acting as:** mixed  
 **Persistence:** scales with batch size  
-**Status:** VERIFIED  
+**Status:** ESTABLISHED  
 **Authorization:** written scope, two accounts
 
 Preconditions:
@@ -321,7 +321,7 @@ Procedure:
 **State changed:** the same field, through a different parser  
 **Acting as:** same  
 **Persistence:** permanent  
-**Status:** VERIFIED  
+**Status:** ESTABLISHED  
 **Authorization:** written scope
 
 Preconditions:
@@ -422,7 +422,7 @@ Procedure:
 **State changed:** an object the attacker did not enumerate, only discovered  
 **Acting as:** the victim owner  
 **Persistence:** as long as the object lives  
-**Status:** VERIFIED  
+**Status:** ESTABLISHED  
 **Authorization:** written scope from the target owner, and accounts you control
 
 Preconditions:
@@ -458,7 +458,7 @@ Procedure:
 **State changed:** a nested collection element  
 **Acting as:** the parent owner  
 **Persistence:** visible immediately to the parent owner  
-**Status:** VERIFIED  
+**Status:** ESTABLISHED  
 **Authorization:** written scope from the target owner, and accounts you control
 
 Preconditions:
@@ -491,7 +491,7 @@ Procedure:
 **State changed:** a group, team or project membership list  
 **Acting as:** the group owner or an admin role  
 **Persistence:** permanent until removed  
-**Status:** VERIFIED  
+**Status:** ESTABLISHED  
 **Authorization:** written scope from the target owner, and accounts you control
 
 Preconditions:
@@ -525,7 +525,7 @@ Procedure:
 **State changed:** an account and its role assignment  
 **Acting as:** the inviter role  
 **Persistence:** permanent  
-**Status:** VERIFIED  
+**Status:** ESTABLISHED  
 **Authorization:** written scope from the target owner, and accounts you control
 
 Preconditions:
@@ -559,7 +559,7 @@ Procedure:
 **State changed:** the persisted role on an account  
 **Acting as:** you, escalated  
 **Persistence:** permanent  
-**Status:** VERIFIED  
+**Status:** ESTABLISHED  
 **Authorization:** written scope from the target owner, and accounts you control
 
 Preconditions:
@@ -592,7 +592,7 @@ Procedure:
 **State changed:** existing rows matched by an external key  
 **Acting as:** the record owners  
 **Persistence:** destructive, often unrecoverable  
-**Status:** VERIFIED  
+**Status:** ESTABLISHED  
 **Authorization:** written scope from the target owner, and accounts you control
 
 Preconditions:
@@ -626,7 +626,7 @@ Procedure:
 **State changed:** outbound integration configuration  
 **Acting as:** the workspace admin  
 **Persistence:** until changed, and every future event leaks  
-**Status:** VERIFIED  
+**Status:** ESTABLISHED  
 **Authorization:** written scope from the target owner, and accounts you control
 
 Preconditions:
@@ -660,7 +660,7 @@ Procedure:
 **State changed:** a resource the key should only read  
 **Acting as:** the key owner  
 **Persistence:** as long as the change lasts  
-**Status:** VERIFIED  
+**Status:** ESTABLISHED  
 **Authorization:** written scope from the target owner, and accounts you control
 
 Preconditions:
@@ -694,7 +694,7 @@ Procedure:
 **State changed:** the granted scope set of a token  
 **Acting as:** the resource owner  
 **Persistence:** for the token lifetime, refreshable  
-**Status:** VERIFIED  
+**Status:** ESTABLISHED  
 **Authorization:** written scope from the target owner, and accounts you control
 
 Preconditions:
@@ -730,7 +730,7 @@ Procedure:
 **State changed:** anything the impersonated user owns  
 **Acting as:** the customer  
 **Persistence:** permanent, logged as the customer  
-**Status:** VERIFIED  
+**Status:** ESTABLISHED  
 **Authorization:** written scope plus a support role provisioned for the test
 
 Preconditions:
@@ -764,7 +764,7 @@ Procedure:
 **State changed:** the object's content, reverted  
 **Acting as:** a principal who had access before  
 **Persistence:** permanent, and it overwrites current content  
-**Status:** VERIFIED  
+**Status:** ESTABLISHED  
 **Authorization:** written scope from the target owner, and accounts you control
 
 Preconditions:
@@ -798,7 +798,7 @@ Procedure:
 **State changed:** a draft that becomes public  
 **Acting as:** the publisher  
 **Persistence:** publication makes it permanent  
-**Status:** VERIFIED  
+**Status:** ESTABLISHED  
 **Authorization:** written scope from the target owner, and accounts you control
 
 Preconditions:
@@ -832,7 +832,7 @@ Procedure:
 **State changed:** the approval status of a request  
 **Acting as:** the requester  
 **Persistence:** permanent record of false approval  
-**Status:** VERIFIED  
+**Status:** ESTABLISHED  
 **Authorization:** written scope from the target owner, and accounts you control
 
 Preconditions:
@@ -968,7 +968,7 @@ Procedure:
 **State changed:** a cached response served to others  
 **Acting as:** whoever requests next  
 **Persistence:** until TTL, seen by many users  
-**Status:** VERIFIED  
+**Status:** ESTABLISHED  
 **Authorization:** written scope from the target owner, and accounts you control
 
 Preconditions:
@@ -1001,7 +1001,7 @@ Procedure:
 **State changed:** the permission level attached to a link token  
 **Acting as:** the sharer  
 **Persistence:** until revoked, sometimes unrevocable  
-**Status:** VERIFIED  
+**Status:** ESTABLISHED  
 **Authorization:** written scope from the target owner, and accounts you control
 
 Preconditions:
@@ -1037,7 +1037,7 @@ Procedure:
 **State changed:** the recovery identity of the account  
 **Acting as:** the account owner  
 **Persistence:** permanent unless noticed  
-**Status:** VERIFIED  
+**Status:** ESTABLISHED  
 **Authorization:** written scope, accounts you fully control
 
 Preconditions:
@@ -1071,7 +1071,7 @@ Procedure:
 **State changed:** the account password  
 **Acting as:** the owner  
 **Persistence:** takeover  
-**Status:** VERIFIED  
+**Status:** ESTABLISHED  
 **Authorization:** written scope, accounts you control
 
 Preconditions:
@@ -1139,7 +1139,7 @@ Procedure:
 **State changed:** the role assigned at login  
 **Acting as:** the assertion issuer  
 **Persistence:** until next login, or permanent if persisted  
-**Status:** VERIFIED  
+**Status:** ESTABLISHED  
 **Authorization:** written scope, a test tenant you own
 
 Preconditions:
@@ -1174,7 +1174,7 @@ Procedure:
 **State changed:** user records and group memberships  
 **Acting as:** the provisioning system  
 **Persistence:** permanent  
-**Status:** VERIFIED  
+**Status:** ESTABLISHED  
 **Authorization:** written scope from the target owner, and accounts you control
 
 Preconditions:
@@ -1242,7 +1242,7 @@ Procedure:
 **State changed:** many objects, one request  
 **Acting as:** mixed  
 **Persistence:** scales with alias count  
-**Status:** VERIFIED  
+**Status:** ESTABLISHED  
 **Authorization:** written scope from the target owner, and accounts you control
 
 Preconditions:
@@ -1278,7 +1278,7 @@ Procedure:
 **State changed:** a field the schema accepts but the form does not offer  
 **Acting as:** you  
 **Persistence:** varies  
-**Status:** VERIFIED  
+**Status:** ESTABLISHED  
 **Authorization:** written scope from the target owner, and accounts you control
 
 Preconditions:
@@ -1350,7 +1350,7 @@ Procedure:
 **State changed:** any field written from JSON  
 **Acting as:** you  
 **Persistence:** permanent  
-**Status:** VERIFIED  
+**Status:** ESTABLISHED  
 **Authorization:** written scope from the target owner, and accounts you control
 
 Preconditions:
@@ -1384,7 +1384,7 @@ Procedure:
 **State changed:** the state a guard depends on  
 **Acting as:** you  
 **Persistence:** varies  
-**Status:** VERIFIED  
+**Status:** ESTABLISHED  
 **Authorization:** written scope from the target owner, and accounts you control
 
 Preconditions:
@@ -1419,7 +1419,7 @@ Procedure:
 **State changed:** an order total, balance or stock level  
 **Acting as:** you  
 **Persistence:** monetary  
-**Status:** VERIFIED  
+**Status:** ESTABLISHED  
 **Authorization:** written scope from the target owner, and accounts you control
 
 Preconditions:
@@ -1453,7 +1453,7 @@ Procedure:
 **State changed:** a ledger entry or entitlement  
 **Acting as:** you  
 **Persistence:** monetary  
-**Status:** VERIFIED  
+**Status:** ESTABLISHED  
 **Authorization:** written scope from the target owner, and accounts you control
 
 Preconditions:
@@ -1487,7 +1487,7 @@ Procedure:
 **State changed:** uniqueness of a username or slug  
 **Acting as:** the victim  
 **Persistence:** permanent, and enables impersonation  
-**Status:** VERIFIED  
+**Status:** ESTABLISHED  
 **Authorization:** written scope from the target owner, and accounts you control
 
 Preconditions:
@@ -1589,7 +1589,7 @@ Procedure:
 **State changed:** which object a request resolves to  
 **Acting as:** the owner  
 **Persistence:** varies  
-**Status:** VERIFIED  
+**Status:** ESTABLISHED  
 **Authorization:** written scope from the target owner, and accounts you control
 
 Preconditions:
@@ -1623,7 +1623,7 @@ Procedure:
 **State changed:** the filesystem path of extracted content  
 **Acting as:** the extractor  
 **Persistence:** files persist  
-**Status:** VERIFIED  
+**Status:** ESTABLISHED  
 **Authorization:** written scope from the target owner, and accounts you control
 
 Preconditions:
@@ -1657,7 +1657,7 @@ Procedure:
 **State changed:** the location and owner of a file  
 **Acting as:** the file owner  
 **Persistence:** permanent  
-**Status:** VERIFIED  
+**Status:** ESTABLISHED  
 **Authorization:** written scope from the target owner, and accounts you control
 
 Preconditions:
@@ -1691,7 +1691,7 @@ Procedure:
 **State changed:** the permission bit on a share  
 **Acting as:** the sharer  
 **Persistence:** until revoked, often unnoticed  
-**Status:** VERIFIED  
+**Status:** ESTABLISHED  
 **Authorization:** written scope from the target owner, and accounts you control
 
 Preconditions:
@@ -1725,7 +1725,7 @@ Procedure:
 **State changed:** the same records, through an older contract  
 **Acting as:** you  
 **Persistence:** permanent  
-**Status:** VERIFIED  
+**Status:** ESTABLISHED  
 **Authorization:** written scope from the target owner, and accounts you control
 
 Preconditions:
