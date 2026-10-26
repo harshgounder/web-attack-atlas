@@ -24,9 +24,10 @@
    "id": "W03",
    "title": "second-order and deferred processing",
    "series": "W",
-   "status": "QUEUED",
-   "patterns": 0,
-   "wave": null
+   "status": "DONE",
+   "patterns": 50,
+   "wave": "W03",
+   "closed_at": "2026-10-26"
   },
   {
    "id": "W04",
