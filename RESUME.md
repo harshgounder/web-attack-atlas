@@ -60,3 +60,23 @@ python3 scripts/render-patterns.py --check   # exit 1 on failure
 2. **W04 datastore writes**, **W05 file materialisation** to finish the write suite.
 3. **W12 AI memory and retrieval**, which D19 and D20 both point at.
 4. **X03 defence counters** as a first-class wave rather than a per-pattern field.
+
+
+---
+
+## Closing note, 2026-10-27
+
+This project's recurring failure mode was a **plausible-looking artifact that nothing validated**.
+Eight instances were caught, none by reading:
+
+1. two recalled facts wrong (a repo called stale that was active, one called live that was archived)
+2. link checker used HEAD, which real sites answer 404, producing 7 false dead links
+3. classifier fallback turned every unmatched counter into "authorisation", inflating a finding to 31%
+4. two repository URLs were invented and looked exactly like the 110 real ones
+5. a mirror coverage metric was measuring its own scoring, giving 14% then 26% then 52%
+6. the backlog was 10,476 until measured properly at 1,491
+7. the corpus was 24,759 until image URLs were removed, giving 21,397
+8. a name repair ran after its generator and was silently discarded, then the retry never matched
+
+Every one was found by a measurement disagreeing with a claim. That is the method this repo is trying
+to encode: if a number cannot be regenerated from disk, it is not a number, it is a memory.
