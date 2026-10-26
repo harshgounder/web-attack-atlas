@@ -15,9 +15,10 @@
    "id": "W02",
    "title": "authorisation on writes",
    "series": "W",
-   "status": "QUEUED",
-   "patterns": 0,
-   "wave": null
+   "status": "DONE",
+   "patterns": 50,
+   "wave": "W02",
+   "closed_at": "2026-10-26"
   },
   {
    "id": "W03",
