@@ -221,7 +221,15 @@ injection, deferred deserialisation, and privilege that outlives revocation.
 | PROBABLE | plausible and implementation dependent, not yet confirmed anywhere citable |
 | DRAFT | incomplete, excluded from the rendered atlas |
 
-Current: **135 ESTABLISHED, 15 PROBABLE, 0 OBSERVED.** The zero is deliberate. An earlier draft used
+Current: **134 ESTABLISHED, 15 PROBABLE, 1 OBSERVED.**
+
+The single observation is `W01-0001`, the parallel create race. It was run on 2026-10-27 against a
+purpose built target in the companion repo: 24 parallel creates produced 24 records of which 23 were
+duplicates, and the sequential control produced exactly one record with 23 rejections. The record is
+`waves/W01/runs/W01-0001.json` and the gate now refuses any `OBSERVED` pattern whose run record is
+missing, belongs to another pattern, or carries no negative control.
+
+Everything else remains `ESTABLISHED`, which means read and cited, not executed. An earlier draft used
 `VERIFIED` for patterns that had never been run, which overclaimed, so the vocabulary was corrected and
 the correction is in the commit history.
 

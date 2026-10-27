@@ -59,6 +59,18 @@ def gate(rows):
             failures.append((p["id"], "no mutations"))
         if p.get("status") not in ("ESTABLISHED", "OBSERVED", "PROBABLE", "DRAFT"):
             failures.append((p["id"], f"bad status {p.get('status')}"))
+        # OBSERVED is an evidence claim, so the evidence has to exist and has to name this pattern.
+        if p.get("status") == "OBSERVED":
+            run = ROOT / str(p.get("observed_in") or "")
+            if not p.get("observed_in") or not run.exists():
+                failures.append((p["id"], "status OBSERVED without a run record at observed_in"))
+            else:
+                import json as _j
+                rec = _j.loads(run.read_text(encoding="utf-8"))
+                if rec.get("pattern") != p["id"]:
+                    failures.append((p["id"], "run record belongs to another pattern"))
+                if not rec.get("negative_control"):
+                    failures.append((p["id"], "run record has no negative control"))
     return failures
 
 

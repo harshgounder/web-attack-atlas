@@ -1,0 +1,31 @@
+{
+ "pattern": "W01-0001",
+ "observed_at": "2026-10-27T09:03:15+05:30",
+ "lab": "lab-01-race",
+ "lab_path": "ai-web-arsenal/range/lab-01-race/",
+ "observation_id": "obs-001",
+ "oracle": "record count read from GET /count, a channel other than the one attacked",
+ "attack": {
+  "status_codes": [
+   201
+  ],
+  "created": 24,
+  "duplicates": 23
+ },
+ "negative_control": {
+  "status_codes": [
+   201,
+   409
+  ],
+  "created": 1,
+  "duplicates": 0
+ },
+ "environment": {
+  "python": "3.14.7",
+  "system": "Linux",
+  "machine": "x86_64",
+  "network": "loopback only, no external traffic"
+ },
+ "reproduce": "python3 scripts/observe.py lab-01-race",
+ "note": "Sequential control produced exactly one record and 23 rejections, so the duplicate count is attributable to the race and not to the harness."
+}
