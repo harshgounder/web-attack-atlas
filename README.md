@@ -229,7 +229,10 @@ duplicates, and the sequential control produced exactly one record with 23 rejec
 `waves/W01/runs/W01-0001.json` and the gate now refuses any `OBSERVED` pattern whose run record is
 missing, belongs to another pattern, or carries no negative control.
 
-Everything else remains `ESTABLISHED`, which means read and cited, not executed. An earlier draft used
+Six labs exist in the companion repo and only one lands here, because this atlas is about writes. The
+other five demonstrate reads: SSRF, object authorisation on a read, cache poisoning, path normalisation
+and algorithm confusion. That is a property of the thesis rather than a gap in the evidence, and it is
+the reason the observed count is one here while the arsenal counts six. An earlier draft used
 `VERIFIED` for patterns that had never been run, which overclaimed, so the vocabulary was corrected and
 the correction is in the commit history.
 
