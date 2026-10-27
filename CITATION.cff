@@ -1,0 +1,24 @@
+cff-version: 1.2.0
+title: web-attack-atlas
+message: If you use this atlas in research or a report, cite it.
+type: software
+authors:
+  - family-names: Gounder
+    given-names: Harsh
+    alias: harshgounder
+repository-code: https://github.com/harshgounder/web-attack-atlas
+url: https://github.com/harshgounder/web-attack-atlas
+license: MIT
+version: 0.1.0
+date-released: 2026-10-27
+abstract: >
+  A pattern atlas for web platform attacks organised by state mutation rather than vulnerability class.
+  150 patterns across three write domains, each answering five questions (what state changes, as whom,
+  does it persist, how do you know, what stops it) and each carrying a counter with its own precondition
+  and cost. Built on 16 attack primitives, with a machine readable decision tree per domain.
+keywords:
+  - application security
+  - web security
+  - attack patterns
+  - state mutation
+  - threat modelling

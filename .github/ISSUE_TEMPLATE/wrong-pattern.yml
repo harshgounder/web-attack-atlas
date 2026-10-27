@@ -1,0 +1,19 @@
+name: Incorrect or overstated pattern
+description: A precondition is wrong, an oracle does not hold, or the counter does not work.
+title: "[pattern] "
+labels: ["bug"]
+body:
+  - type: input
+    id: pid
+    attributes:
+      label: Pattern id
+      placeholder: W02-0001
+    validations:
+      required: true
+  - type: textarea
+    id: why
+    attributes:
+      label: What is wrong
+      description: Quote the field and say what the correct version is.
+    validations:
+      required: true
