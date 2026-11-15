@@ -265,3 +265,14 @@ Read [SECURITY.md](SECURITY.md). Every pattern carries its authorisation require
 [MIT](LICENSE).
 
 <p align="center"><sub>Every count in this file is produced by <code>scripts/render-patterns.py</code> and <code>scripts/maintain.py</code>. If a number disagrees with a script, the script is right.</sub></p>
+
+## Companion system, expanded (2026-11-15)
+
+The execution, proving and memory layers now exist as three more repos:
+web-attack-driver (executor/critic loop, scope and evidence in code),
+web-attack-labs (every pattern ships with a lab or it does not ship) and
+web-attack-locker... correction: web-attack-ledger (append-only memory of
+findings, failures and oracle lessons). The first lab-backed pattern from the
+2026-11-15 research digest is patterns/W02-caller-supplied-object-ids.md,
+status: candidate, its two-principal lab contract already written in
+web-attack-labs/labs/juice-shop-live.
